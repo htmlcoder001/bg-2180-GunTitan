@@ -1,0 +1,2837 @@
+<!DOCTYPE html>
+<html lang="bg" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title> Reddit </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="fonts/logo.svg" type="image/x-icon">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    .button-plain, :root, button, button.button-plain {
+      --button-color-background-active: linear-gradient(var(--color-button-secondary-background-hover), var(--color-button-secondary-background-hover))
+    }
+    
+    .box-border, .button, .reddit-header, button {
+      box-sizing: border-box
+    }
+    
+    .action, .button, .whitespace-nowrap, button {
+      white-space: nowrap
+    }
+    
+    #bottle, #ssbutton, .action, .button, .imginch, .imginch p, .left_box, .secret_box h3, .use-app, button, h4 {
+      text-align: center
+    }
+    
+    #ssbutton:hover, .a, .action, .button, .lb-footer__text a, a, button {
+      text-decoration: none
+    }
+    
+    .secret_box h3, a:hover {
+      text-decoration: underline
+    }
+    
+    img, input, pre, textarea {
+      max-width: 100%
+    }
+    
+    :root, button {
+      --button-color-background-default: var(--color-button-secondary-background);
+      --button-color-background-focus: var(--color-button-secondary-background-focus);
+      --button-color-background-hover: var(--color-button-secondary-background-hover);
+      --button-color-background-disabled: var(--color-button-secondary-background-disabled);
+      --button-color-background-activated: var(--color-button-secondary-background-activated);
+      --button-color-text-default: var(--color-button-secondary-text);
+      --button-color-text-disabled: var(--color-button-secondary-text-disabled);
+      --button-color-text-activated: var(--color-button-secondary-text-activated);
+      --button-border-color-default: var(--color-button-secondary-border);
+      --button-border-color-hover: var(--color-button-secondary-border-hover);
+      --button-border-color-active: var(--color-button-secondary-border-active);
+      --button-border-color-activated: var(--color-button-secondary-border-activated);
+      --button-border-color-disabled: var(--color-button-secondary-border-disabled)
+    }
+    
+    .a:visited:not(.no-visited), h3 {
+      color: var(--color-a-visited)
+    }
+    
+    .button-small, button {
+      --button-height: var(--size-button-sm-h);
+      --button-padding: var(--spacer-2xs);
+      --button-font: var(--font-button-sm);
+      --button-border-width-default: var(--line-button-sm-border);
+      --button-border-width-activated: var(--line-button-border-activated)
+    }
+    
+    .overflow-x-hidden, body {
+      overflow-x: hidden
+    }
+    
+    .align-middle, img {
+      vertical-align: middle
+    }
+    
+    .font-sans, :root, button, html, input, select {
+      font-family: var(--font-sans)
+    }
+    
+    del, ins {
+      text-underline-position: under
+    }
+    
+    .scroll-smooth, .topics-list {
+      scroll-behavior: smooth
+    }
+    
+    .theme-light, :root {
+      --rem128: 8rem;
+      --rem96: 6rem;
+      --rem88: 5.5rem;
+      --rem64: 4rem;
+      --rem56: 3.5rem;
+      --rem48: 3rem;
+      --rem40: 2.5rem;
+      --rem36: 2.25rem;
+      --rem32: 2rem;
+      --rem28: 1.75rem;
+      --rem26: 1.625rem;
+      --rem24: 1.5rem;
+      --rem22: 1.375rem;
+      --rem20: 1.25rem;
+      --rem18: 1.125rem;
+      --rem16: 1rem;
+      --rem15: 0.9375rem;
+      --rem14: 0.875rem;
+      --rem12: 0.75rem;
+      --rem10: 0.625rem;
+      --rem8: 0.5rem;
+      --rem6: 0.375rem;
+      --rem4: 0.25rem;
+      --rem2: 0.125rem;
+      --rem1: 0.0625rem;
+      --spacer-2xs: 0.25rem;
+      --spacer-xs: 0.5rem;
+      --spacer-sm: 0.75rem;
+      --spacer-md: 1rem;
+      --spacer-lg: 1.5rem;
+      --spacer-xl: 2rem;
+      --spacer-2xl: 3rem;
+      --spacer-a-px: 0px;
+      --spacer-button-lg-px: var(--spacer-lg);
+      --spacer-button-md-px: var(--spacer-lg);
+      --spacer-button-sm-px: var(--spacer-md);
+      --spacer-input-padding-left: 0px;
+      --spacer-input-padding-top: 0px;
+      --spacer-label-default: 0px;
+      --spacer-switch-input-active-pl: 0px;
+      --size-2xs: 0.25rem;
+      --size-xs: 0.5rem;
+      --size-sm: 0.75rem;
+      --size-md: 1rem;
+      --size-lg: 1.5rem;
+      --size-xl: 2rem;
+      --size-2xl: 3rem;
+      --size-3xl: 4rem;
+      --size-4xl: 6rem;
+      --size-5xl: 8rem;
+      --size-button-lg-h: 3.375rem;
+      --size-button-md-h: 2.75rem;
+      --size-button-sm-h: 2.125rem;
+      --size-button-xs-h: 1.375rem;
+      --size-switch-input-h: 1.25rem;
+      --size-switch-input-w: 2rem;
+      --line-sm: 0.0625rem;
+      --line-md: 0.125rem;
+      --line-lg: 0.25rem;
+      --line-a-focus: 0px;
+      --line-a-outline-moz: 0.0625rem;
+      --line-a-outline-wb: 0.3125rem;
+      --line-button-lg-border: 0.0625rem;
+      --line-button-md-border: 0.0625rem;
+      --line-button-sm-border: 0.0625rem;
+      --line-button-xs-border: 0.0625rem;
+      --line-button-border-activated: 0.0625rem;
+      --line-input-border: var(--line-sm);
+      --radius-sm: 0.25rem;
+      --radius-lg: 2rem;
+      --radius-full: 624.9375rem;
+      --radius-accordion-size: var(--radius-sm);
+      --font-10-15-bold: normal 700 0.625rem/0.9375rem var(--font-sans);
+      --font-button-lg: normal 700 1.125rem/1.375rem var(--font-sans);
+      --font-button-md: normal 700 1rem/1.25rem var(--font-sans);
+      --font-button-sm: normal 700 0.875rem/1.125rem var(--font-sans);
+      --font-button-xs: normal 700 0.75rem/0.875rem var(--font-sans);
+      --font-label-default: var(--font-10-15-bold);
+      --misc-accordion-border: 1px solid var(--color-tone-5);
+      --misc-accordion-open-list-style-type: disclosure-open;
+      --misc-accordion-closed-list-style-type: disclosure-closed;
+      --misc-divider-margin: 0.5rem auto;
+      --misc-label-text-transform: uppercase;
+      --misc-label-letter-spacing: 0.5px;
+      --color-primary-visited: #660099;
+      --color-primary-background: #24a0ed;
+      --color-primary-background-hover: #006cbf;
+      --color-danger-content: #ea0027;
+      --color-success-content: #46d160;
+      --color-global-black: #000000;
+      --color-global-white: #ffffff;
+      --color-global-orangered: #D93A00;
+      --color-global-alienblue: #0079d3;
+      --color-global-darkblue: #1d2535;
+      --color-tone-1: #1a1a1b;
+      --color-tone-2: #6a6d6f;
+      --color-tone-3: #878a8c;
+      --color-tone-4: #d3d6da;
+      --color-tone-5: #edeff1;
+      --color-tone-6: #f6f7f8;
+      --color-tone-7: #ffffff;
+      --color-action-primary: var(--color-primary-background);
+      --color-action-secondary: var(--color-primary-background-hover);
+      --color-action-upvote: var(--color-global-orangered);
+      --color-action-downvote: #7193ff;
+      --color-alert-positive: var(--color-success-content);
+      --color-alert-negative: var(--color-danger-content);
+      --color-alert-caution: #ffb000;
+      --color-identity-admin: var(--color-global-orangered);
+      --color-identity-moderator: #46d160;
+      --color-identity-self: #0dd3bb;
+      --color-identity-coins: #ddbd37;
+      --color-category-live: var(--color-global-orangered);
+      --color-category-nsfw: #ff3881;
+      --color-category-spoiler: var(--color-tone-1);
+      --color-ui-canvas: var(--color-tone-5);
+      --color-ui-modalbackground: var(--color-tone-7);
+      --color-opacity-highlight: linear-gradient(#006cbf1a, var(--color-tone-6));
+      --color-opacity-08: #1a1a1b14;
+      --color-opacity-50: #00000080;
+      --color-scrim: #1a1a1b4d;
+      --color-a-default: var(--color-primary-background-hover);
+      --color-a-hover: var(--color-primary-background-hover);
+      --color-a-visited: var(--color-primary-background-hover);
+      --color-button-overlay-focus: #ffffff1a;
+      --color-button-overlay-active: #00000014;
+      --color-button-primary-background-hover: var(--color-primary-background);
+      --color-button-primary-background-disabled: var(--color-tone-6);
+      --color-button-primary-border-hover: transparent;
+      --color-button-primary-border-active: transparent;
+      --color-button-primary-border-activated: transparent;
+      --color-button-primary-border-disabled: transparent;
+      --color-button-primary-text-disabled: var(--color-tone-2);
+      --color-button-secondary-background: transparent;
+      --color-button-secondary-background-focus: transparent;
+      --color-button-secondary-background-hover: transparent;
+      --color-button-secondary-background-disabled: var(--color-tone-6);
+      --color-button-secondary-background-activated: transparent;
+      --color-button-secondary-border: var(--color-primary-background-hover);
+      --color-button-secondary-border-hover: var(--color-primary-background-hover);
+      --color-button-secondary-border-active: var(--color-primary-background-hover);
+      --color-button-secondary-border-activated: var(--color-primary-background-hover);
+      --color-button-secondary-border-disabled: var(--color-tone-2);
+      --color-button-secondary-text: var(--color-primary-background-hover);
+      --color-button-secondary-text-disabled: var(--color-tone-2);
+      --color-button-secondary-text-activated: var(--color-button-secondary-text);
+      --color-button-tertiary-background: var(--color-tone-6);
+      --color-button-tertiary-background-focus: var(--color-tone-6);
+      --color-button-tertiary-background-hover: var(--color-tone-6);
+      --color-button-tertiary-background-disabled: var(--color-tone-6);
+      --color-button-tertiary-background-activated: var(--color-tone-6);
+      --color-button-tertiary-border-hover: transparent;
+      --color-button-tertiary-border-active: transparent;
+      --color-button-tertiary-text: var(--color-primary-background-hover);
+      --color-button-tertiary-text-disabled: var(--color-tone-2);
+      --color-button-tertiary-text-activated: var(--color-primary-background-hover);
+      --color-button-plain-background-hover: transparent;
+      --color-button-plain-background-disabled: var(--color-tone-7);
+      --color-button-plain-background-activated: transparent;
+      --color-button-plain-border-hover: transparent;
+      --color-button-plain-border-active: transparent;
+      --color-button-plain-text: var(--color-primary-background-hover);
+      --color-button-plain-text-disabled: var(--color-tone-2);
+      --color-button-plain-text-activated: var(--color-primary-background-hover);
+      --color-divider-default: var(--color-tone-5);
+      --color-input-default: var(--color-tone-6);
+      --color-input-hover: var(--color-primary-background-hover);
+      --color-input-border: var(--color-tone-5);
+      --color-input-text: var(--color-tone-1);
+      --color-input-helper-text: var(--color-tone-1);
+      --color-label-default: var(--color-tone-1);
+      --color-switch-input-background-default: var(--color-tone-3);
+      --color-switch-input-background-checked: var(--color-global-alienblue);
+      --color-switch-input-background-disabled: var(--color-tone-6);
+      --color-switch-input-background-checked-disabled: var(--color-tone-5);
+      --color-switch-input-background-hover: var(--color-tone-3);
+      --color-switch-input-background-checked-hover: var(--color-global-alienblue);
+      --elevation-xs: 0 0.0625rem 0.125rem 0 #00000040;
+      --elevation-sm: 0 0.0625rem 0.25rem 0 #00000026, 0 0.25rem 0.25rem 0 #00000026;
+      --elevation-md: 0 0.25rem 0.5rem 0 #0000001a, 0 0.375rem 0.75rem 0 #00000040;
+      --elevation-lg: 0 0.75rem 0.75rem 0 #00000026, 0 1rem 2rem 0 #00000040;
+      --elevation-focus-ring: 0 0 0 0.25rem var(--color-global-alienblue);
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+      --font-mono: Noto Mono, Menlo, Monaco, Consolas, monospace;
+      --font-title-h0: normal 500 1.625rem/2rem var(--font-sans);
+      --font-title-h1: normal 500 1.375rem/1.625rem var(--font-sans);
+      --font-title-h2: normal 500 1.25rem/1.5rem var(--font-sans);
+      --font-title-h3: normal 500 1.125rem/1.375rem var(--font-sans);
+      --font-title-h4: normal 500 1rem/1.25rem var(--font-sans);
+      --font-title-h5: normal 500 0.875rem/1.125rem var(--font-sans);
+      --font-title-h6: normal 500 0.75rem/1rem var(--font-sans);
+      --font-body: 0.875rem;
+      --font-small: 0.75rem;
+      --font-code: 0.875rem;
+      --font-subheading: 0.75rem;
+      --font-label: 0.625rem;
+      --font-button-b1: normal bold 1.125rem/1.375rem var(--font-sans);
+      --font-button-b2: normal bold 1rem/1.25rem var(--font-sans);
+      --font-button-b3: normal bold 0.875rem/1.125rem var(--font-sans);
+      --font-button-b4: normal bold 0.75rem/0.875rem var(--font-sans);
+      --color-gradient-orangeyellow: linear-gradient(89.94deg, #ec0623 0%, #ff8717 100%);
+      --color-gradient-bluepink: linear-gradient(89.94deg, #51b9ff 0%, #7785ff 52.6%, #b279ff 73.96%, #ff81ed 100%);
+      --boxshadow-modal: 0px 2px 15px rgba(26, 26, 27, 0.3);
+      --boxshadow-navigation: 0px 4px 14px rgba(0, 0, 0, 0.1);
+      --boxshadow-tooltip: 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15);
+      color-scheme: light
+    }
+    
+    .theme-light dialog::backdrop, :root dialog::backdrop {
+      --color-dialog-background: #00000080
+    }
+    
+    :root {
+      background: var(--color-ui-canvas);
+      --shreddit-content-background: var(--color-tone-7)
+    }
+    
+    header {
+      background: var(--color-tone-6)
+    }
+    
+    body {
+      font-size: 16px;
+      margin: 0 auto;
+      padding: var(--faceplate-body-padding);
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.5
+    }
+    
+    .button, .overflow-hidden, button {
+      overflow: hidden
+    }
+    
+    :not(:defined) {
+      visibility: hidden
+    }
+    
+    .button:disabled::before, button:disabled::before {
+      display: none
+    }
+    
+    p {
+      margin: 10px 0
+    }
+    
+    @media (max-width: 599px) {
+      body {
+        --faceplate-body-padding: 1rem
+      }
+    }
+    
+    ::selection {
+      background: var(--color-primary-background);
+      color: var(--color-tone-7)
+    }
+    
+    .button, button {
+      height: var(--button-height);
+      text-overflow: ellipsis;
+      background: var(--button-color-background);
+      box-shadow: var(--button-shadow);
+      display: inline-block;
+      outline: 0;
+      --button-border-color: var(--button-border-color-default);
+      --button-border-width: var(--button-border-width-default);
+      --button-color-background: var(--button-color-background-default);
+      --button-color-text: var(--button-color-text-default)
+    }
+    
+    h1, h3, h5 {
+      margin: 1em 0 .5em
+    }
+    
+    h1 {
+      font: var(--font-title-h1)
+    }
+    
+    h3 {
+      font: var(--font-title-h3);
+      font-weight: 700;
+      font-size: 22px
+    }
+    
+    h5 {
+      font: var(--font-title-h5)
+    }
+    
+    a {
+      color: var(--color-primary-background-hover)
+    }
+    
+    header > :first-child {
+      margin-top: 0
+    }
+    
+    .action-row img, .burger, .logo, .md :last-child, .reddit, header > :last-child {
+      margin-bottom: 0
+    }
+    
+    button {
+      border-radius: 999px;
+      border: none;
+      border: var(--button-border-width, 0) solid var(--button-border-color, transparent);
+      color: var(--button-color-text);
+      cursor: pointer;
+      font: var(--button-font);
+      line-height: calc(var(--button-height) - (2 * var(--button-border-width, 0px)));
+      padding: 0 calc(var(--button-padding) - var(--button-border-width, 0px))
+    }
+    
+    .button:focus, .button:hover, button:focus, button:hover {
+      --button-color-overlay: var(--color-button-overlay-focus)
+    }
+    
+    .button:hover, button:hover {
+      --button-border-color: var(--button-border-color-hover);
+      --button-color-background: var(--button-color-background-hover)
+    }
+    
+    .button:focus, button:focus {
+      --button-shadow: var(--elevation-button-focus)
+    }
+    
+    .button:focus:not(:focus-visible), button:focus:not(:focus-visible) {
+      --button-shadow: 0 0 0 var(--line-l) transparent
+    }
+    
+    .button:active, button:active {
+      --button-border-color: var(--button-border-color-active);
+      --button-color-overlay: var(--color-button-overlay-active);
+      --button-color-background: linear-gradient(var(--color-interactive-pressed), var(--color-interactive-pressed)), var(--button-color-background-active)
+    }
+    
+    .button:active, .button:focus, .button:hover, .relative, button:active, button:focus, button:hover {
+      position: relative
+    }
+    
+    .button:active::before, .button:focus::before, .button:hover::before, button:active::before, button:focus::before, button:hover::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: block;
+      background: var(--button-color-overlay);
+      border-radius: inherit;
+      pointer-events: none
+    }
+    
+    .button:disabled, button:disabled {
+      --button-border-color: var(--button-border-color-disabled);
+      --button-color-background: var(--button-color-background-disabled);
+      --button-color-text: var(--button-color-text-disabled);
+      cursor: not-allowed
+    }
+    
+    .button-plain, button.button-plain {
+      --button-color-background-default: transparent;
+      --button-color-background-focus: transparent;
+      --button-color-background-hover: var(--color-button-plain-background-hover);
+      --button-color-background-disabled: var(--color-button-plain-background-disabled);
+      --button-color-background-activated: var(--color-button-plain-background-activated);
+      --button-color-text-default: var(--color-button-plain-text);
+      --button-color-text-disabled: var(--color-button-plain-text-disabled);
+      --button-color-text-activated: var(--color-button-plain-text-activated);
+      --button-border-color-default: transparent;
+      --button-border-color-hover: var(--color-button-plain-border-hover);
+      --button-border-color-active: var(--color-button-plain-border-active);
+      --button-border-color-activated: transparent;
+      --button-border-color-disabled: transparent
+    }
+    
+    .a {
+      border: var(--line-a-focus) solid transparent;
+      border-radius: 2px;
+      color: var(--color-a-default);
+      font-size: 1em;
+      padding: 0 var(--spacer-a-px);
+      margin: calc(-1 * var(--line-a-focus)) calc(-1 * (var(--spacer-a-px) + var(--line-a-focus)))
+    }
+    
+    .button {
+      padding: 0 calc(var(--button-padding) - var(--button-border-width, 0px));
+      border-radius: 999px;
+      border: none;
+      border: var(--button-border-width, 0) solid var(--button-border-color, transparent);
+      color: var(--button-color-text);
+      font: var(--button-font);
+      line-height: calc(var(--button-height) - (2 * var(--button-border-width, 0px)))
+    }
+    
+    .block, shreddit-app {
+      display: block
+    }
+    
+    .a:hover {
+      color: var(--color-a-hover)
+    }
+    
+    .a:focus {
+      border-color: var(--color-global-focus, transparent);
+      outline: #212121 dotted var(--line-a-outline-moz);
+      outline: -webkit-focus-ring-color auto var(--line-a-outline-wb)
+    }
+    
+    .a:focus:not(:focus-visible) {
+      border-color: transparent
+    }
+    
+    .button-icon {
+      --button-padding: 0;
+      width: var(--button-height)
+    }
+    
+    .nd\:visible:not(:defined), shreddit-app:not(:defined,.v2) {
+      visibility: visible
+    }
+    
+    .absolute {
+      position: absolute
+    }
+    
+    .bottom-0 {
+      bottom: 0
+    }
+    
+    .col-start-2 {
+      grid-column-start: 2
+    }
+    
+    .col-end-2 {
+      grid-column-end: 2
+    }
+    
+    .row-start-1 {
+      grid-row-start: 1
+    }
+    
+    .row-end-auto {
+      grid-row-end: auto
+    }
+    
+    .my-0 {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+    
+    .mx-2xs {
+      margin-left: .25rem;
+      margin-right: .25rem
+    }
+    
+    .mx-auto, main {
+      margin-right: auto
+    }
+    
+    .ml-auto, .mx-auto, main {
+      margin-left: auto
+    }
+    
+    .mt-xs {
+      margin-top: .5rem
+    }
+    
+    .mr-xs {
+      margin-right: .5rem
+    }
+    
+    .mr-2xs {
+      margin-right: .25rem
+    }
+    
+    .ml-\[1\.75rem\] {
+      margin-left: 1.75rem
+    }
+    
+    .ml-2xs {
+      margin-left: .25rem
+    }
+    
+    .mb-md {
+      margin-bottom: 1rem
+    }
+    
+    .mb-xs {
+      margin-bottom: .5rem
+    }
+    
+    .mt-2xs {
+      margin-top: .25rem
+    }
+    
+    .forfoto .rel, .imginch p, .inline-block, .use-app {
+      display: inline-block
+    }
+    
+    .flex {
+      display: flex
+    }
+    
+    .grid {
+      display: grid
+    }
+    
+    .h-\[21px\] {
+      height: 21px
+    }
+    
+    .h-100, .h-full {
+      height: 100%
+    }
+    
+    .h-xl {
+      height: 2rem
+    }
+    
+    .max-h-\[100vw\] {
+      max-height: 100vw
+    }
+    
+    .w-\[21px\] {
+      width: 21px
+    }
+    
+    .w-100, .w-full {
+      width: 100%
+    }
+    
+    .w-xl {
+      width: 2rem
+    }
+    
+    .min-w-full {
+      min-width: 100%
+    }
+    
+    .flex-shrink-0, .shrink-0 {
+      flex-shrink: 0
+    }
+    
+    .grow {
+      flex-grow: 1
+    }
+    
+    .items-center {
+      align-items: center
+    }
+    
+    .justify-items-center {
+      justify-items: center
+    }
+    
+    .rounded-full {
+      border-radius: 624.9375rem
+    }
+    
+    .border-action-secondary {
+      border-color: var(--color-action-secondary)
+    }
+    
+    .bg-tone-5 {
+      background-color: var(--color-tone-5)
+    }
+    
+    .bg-\[color\:var\(--shreddit-content-background\)\] {
+      background-color: var(--shreddit-content-background)
+    }
+    
+    .object-contain {
+      object-fit: contain
+    }
+    
+    .p-0 {
+      padding: 0
+    }
+    
+    .pl-md, .px-md {
+      padding-left: 1rem
+    }
+    
+    .nd\:pt-xs:not(:defined), .pt-xs, .py-xs {
+      padding-top: .5rem
+    }
+    
+    .pr-md, .px-md {
+      padding-right: 1rem
+    }
+    
+    .py-xs {
+      padding-bottom: .5rem
+    }
+    
+    .indent-0 {
+      text-indent: 0
+    }
+    
+    .text-12 {
+      font-size: .75rem;
+      line-height: 1rem
+    }
+    
+    .text-14 {
+      font-size: .875rem;
+      line-height: 1.25rem
+    }
+    
+    .text-18 {
+      font-size: 1.125rem;
+      line-height: 1.5rem
+    }
+    
+    .text-32 {
+      font-size: 2rem;
+      line-height: 2.25rem
+    }
+    
+    .font-semibold {
+      font-weight: 600
+    }
+    
+    #ssbutton, .font-bold, .forfoto p.kga, .imginch p, .main-title, .mark span, .use-app {
+      font-weight: 700
+    }
+    
+    .header-left a, .leading-none, .menu {
+      line-height: 1
+    }
+    
+    .leading-normal {
+      line-height: 1.5
+    }
+    
+    .text-tone-2, .time {
+      color: var(--color-tone-2)
+    }
+    
+    .hover\:text-tone-1:hover, .text-tone-1, .visited\:text-tone-1:visited {
+      color: var(--color-tone-1)
+    }
+    
+    .text-action-secondary {
+      color: var(--color-action-secondary)
+    }
+    
+    .active\:no-underline:active, .hover\:no-underline:hover, .no-underline {
+      text-decoration-line: none
+    }
+    
+    .opacity-30 {
+      opacity: .3
+    }
+    
+    @media (min-width: 1024px) {
+      .lg\:row-start-1 {
+        grid-row-start: 1
+      }
+      
+      .lg\:row-end-auto {
+        grid-row-end: auto
+      }
+    }
+    
+    @media (min-width: 640px) {
+      .xs\:h-2xl {
+        height: 3rem
+      }
+      
+      .xs\:w-2xl {
+        width: 3rem
+      }
+      
+      .xs\:overflow-visible {
+        overflow: visible
+      }
+    }
+    
+    body {
+      --faceplate-body-padding: 0px !important;
+      -webkit-font-smoothing: antialiased
+    }
+    
+    shreddit-app {
+      --shreddit-header-height: 48px;
+      --shreddit-header-large-height: 56px;
+      --shreddit-bottom-padding: 52px
+    }
+    
+    .author {
+      color: inherit
+    }
+    
+    shreddit-app:not(.v2) {
+      padding: var(--shreddit-header-height) 0 var(--shreddit-bottom-padding)
+    }
+    
+    .sidebar-grid.control {
+      grid-template-columns:15rem 100vw;
+      position: relative;
+      left: -15rem
+    }
+    
+    @media (min-width: 64em) {
+      .sidebar-grid.control {
+        grid-template-columns:minmax(12rem, 1fr) minmax(0, 3fr) minmax(12rem, 1fr);
+        left: 0
+      }
+      
+      .sidebar-grid.control.no-right-sidebar {
+        left: 0
+      }
+    }
+    
+    shreddit-post {
+      padding-bottom: 30px
+    }
+    
+    shreddit-post:not(:defined) [slot=title] {
+      margin-top: 0;
+      padding: 0 1rem;
+      margin-bottom: 16px
+    }
+    
+    .comment-meta {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      font-size: .875rem
+    }
+    
+    shreddit-comment-tree .top-level {
+      padding: 1rem
+    }
+    
+    shreddit-comment-tree:not([is-shredtop-pdp]) .top-level:not(:first-child) {
+      border-top: 4px solid var(--color-tone-5)
+    }
+    
+    .lb-footer {
+      margin: .5rem 0;
+      padding: .625rem;
+      align-items: center;
+      display: flex;
+      flex-flow: row nowrap;
+      min-height: 50px
+    }
+    
+    .lb-footer__icon {
+      font-size: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin-right: 9px;
+      width: 40px
+    }
+    
+    .lb-footer h5 {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 16px;
+      margin: 0
+    }
+    
+    .lb-footer__text a {
+      color: var(--color-action-primary)
+    }
+    
+    .lb-footer__text > p {
+      color: var(--color-tone-2);
+      font: var(--font-body);
+      font-size: 12px;
+      line-height: 16px;
+      margin: 0
+    }
+    
+    shreddit-post [slot=title] {
+      grid-column: 1/2
+    }
+    
+    .shreddit-snoovatar__snoovatarHeadshot {
+      width: 100% !important;
+      transform-origin: bottom center;
+      display: block;
+      transform: scale(1.3);
+      z-index: 3;
+      border-radius: 14px
+    }
+    
+    .reddit-header {
+      --color-tone-6: #1d2535;
+      padding-left: calc(50vw - 50%);
+      padding-right: calc(50vw - 50%);
+      margin-left: calc(0px - (50vw - 50%));
+      margin-right: calc(0px - (50vw - 50%));
+      padding-top: var(--faceplate-body-padding);
+      padding-bottom: var(--faceplate-body-padding);
+      margin-top: calc(-1 * var(--faceplate-body-padding));
+      margin-bottom: var(--faceplate-body-padding);
+      background: var(--color-tone-6);
+      color: var(--color-global-white);
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: var(--shreddit-header-height);
+      z-index: 5
+    }
+    
+    .use-app {
+      animation: .3s both scaleIn;
+      background-color: var(--color-global-orangered);
+      border-radius: 20px;
+      color: var(--color-global-white);
+      font-size: 12px;
+      line-height: 18px;
+      padding: 4px 10px;
+      right: 52px;
+      top: 11px;
+      transform-origin: center center;
+      z-index: 99
+    }
+    
+    .forfoto p.kga, .imginch {
+      top: inherit;
+      left: inherit
+    }
+    
+    .action-row {
+      color: var(--color-tone-2);
+      grid-column: 1/4;
+      display: grid;
+      gap: .5rem;
+      padding: .5rem 1rem;
+      grid-template-columns:repeat(2, auto) 1fr [last-line] auto
+    }
+    
+    .action {
+      border: 1px solid var(--color-tone-5);
+      line-height: 1.25rem;
+      border-radius: 200px;
+      padding: .3125rem .5rem;
+      margin: 0;
+      color: inherit;
+      background: 0 0;
+      overflow: hidden
+    }
+    
+    .action-arrow-block {
+      width: 73.34px;
+      height: 20.1px;
+      justify-content: space-between;
+      align-items: center
+    }
+    
+    .action-comments, .action-replay {
+      height: 20.1px;
+      justify-content: space-between
+    }
+    
+    .action-comments {
+      width: 43.862px;
+      align-items: center
+    }
+    
+    .action.last {
+      grid-column: last-line/span 1;
+      width: 17.325px;
+      height: 20.1px
+    }
+    
+    .icon {
+      padding: 0 2px
+    }
+    
+    .action-replay {
+      margin-left: 12px;
+      width: 53px;
+      align-items: center
+    }
+    
+    .before-after {
+      margin: 0 auto;
+      width: fit-content
+    }
+    
+    main {
+      width: 100%;
+      padding-right: 15px;
+      padding-left: 15px;
+      max-width: 800px
+    }
+    
+    .header-content {
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+    
+    .header-left, .header-right {
+      display: flex;
+      align-items: center
+    }
+    
+    .logo {
+      width: 30px;
+      height: 30px;
+      vertical-align: text-bottom
+    }
+    
+    .reddit {
+      margin-left: 5px;
+      width: 55px;
+      height: 18px;
+      padding: 6px 0
+    }
+    
+    .burger {
+      margin-left: 15px;
+      width: 20px;
+      height: 20px;
+      padding: 3px 0
+    }
+    
+    .shreddit-icon {
+      vertical-align: baseline
+    }
+    
+    .main-title {
+      font-size: 30px;
+      line-height: 35px
+    }
+    
+    .lefto-img {
+      width: 200px;
+      margin-right: 20px;
+      float: left
+    }
+    
+    .effects {
+      display: flex;
+      justify-content: space-evenly
+    }
+    
+    .effects div.phot {
+      flex: 0 1 42%;
+      align-self: center;
+      min-width: 300px;
+      margin-bottom: 15px
+    }
+    
+    .effects .phot img {
+      max-width: 300px;
+      width: 100%;
+      margin: 0
+    }
+    
+    .effects div.txt {
+      flex: 0 1 50%;
+      margin-left: 18px;
+      max-width: 520px;
+      align-self: center
+    }
+    
+    @media (max-width: 780px) {
+      main {
+        padding-right: 0;
+        padding-left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: none
+      }
+      
+      .main-title {
+        font-size: 22px;
+        line-height: 26px
+      }
+      
+      .effects {
+        flex-direction: column
+      }
+    }
+    
+    h4 {
+      line-height: 1.1;
+      margin: 4px 0;
+      font-size: 1.2em
+    }
+    
+    .list0 {
+      padding-left: 18px
+    }
+    
+    .forfoto {
+      overflow: auto;
+      position: relative;
+      padding: 16px 16px 36px;
+      border-top: 4px solid var(--color-tone-5);
+      background-color: var(--shreddit-content-background);
+      width: 100%;
+      margin-left: -16px;
+      margin-top: 0
+    }
+    
+    .forfoto::before {
+      content: '';
+      border-style: solid;
+      border-left-width: 1px;
+      border-right-width: 0;
+      position: absolute;
+      top: 34px;
+      left: 25px;
+      border-color: var(--color-tone-4);
+      height: calc(100% - 2rem - 25px);
+      z-index: 2
+    }
+    
+    .avatar {
+      z-index: 3;
+      margin-top: 4px
+    }
+    
+    .forfoto .rel {
+      float: left;
+      width: 38%;
+      max-width: 300px;
+      position: relative;
+      vertical-align: top;
+      margin: 10px 10px 10px 20px
+    }
+    
+    .lefto {
+      margin-right: 10px;
+      width: 300px;
+      float: left
+    }
+    
+    .forfoto p.kga {
+      position: absolute;
+      padding: 10px;
+      margin-bottom: 0;
+      background: rgba(180, 180, 180, .6);
+      border-radius: 7px;
+      font-size: 25px;
+      bottom: 10px;
+      right: 10px;
+      color: #000
+    }
+    
+    .forfoto p {
+      margin: 10px 0;
+      margin-left: 7px !important
+    }
+    
+    .forfoto .txt {
+      float: right;
+      width: 56%;
+      padding-right: 1%
+    }
+    
+    .comment-action {
+      display: flex;
+      position: absolute;
+      bottom: 16px;
+      left: 36px
+    }
+    
+    @media (max-width: 767px) {
+      .forfoto {
+        text-align: center;
+        padding: 10px 10px 46px
+      }
+      
+      .forfoto::before {
+        left: 19px
+      }
+      
+      .forfoto .rel {
+        margin: 0
+      }
+      
+      .forfoto .txt {
+        width: 96%;
+        float: none;
+        margin: auto;
+        padding: 0
+      }
+      
+      .forfoto p {
+        text-align: left
+      }
+      
+      .forfoto .rel, .forfoto img {
+        float: none;
+        max-width: 300px;
+        width: 100%
+      }
+    }
+    
+    @media (max-width: 520px) {
+      .button-icon {
+        display: none
+      }
+      
+      .comment-meta {
+        height: 34px
+      }
+      
+      .lefto {
+        margin-left: 14px;
+        margin-right: 0
+      }
+      
+      .forfoto .rel, .forfoto img {
+        float: none;
+        max-width: 300px;
+        width: 90%
+      }
+      
+      .forfoto p.kga {
+        right: 18px
+      }
+      
+      .imginchdiv {
+        margin-left: 8px !important
+      }
+    }
+    
+    #bottle img, .left_box img {
+      max-height: 400px;
+      max-width: 100%
+    }
+    
+    .imginchdiv {
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto
+    }
+    
+    .imginch {
+      bottom: 4%;
+      right: 8%;
+      background: #de2600;
+      outline-offset: -10px;
+      width: 140px;
+      height: 140px
+    }
+    
+    .imginch, .imginch:before {
+      position: absolute;
+      border-radius: 100%
+    }
+    
+    .imginch:before {
+      content: "";
+      border: 3px solid #fff;
+      width: 91%;
+      height: 91%;
+      top: 2%;
+      right: 3%;
+      z-index: 4
+    }
+    
+    .imginch p {
+      font-size: 28px;
+      line-height: 30px;
+      width: 130px;
+      height: 60px;
+      margin: 36px 0 0 !important;
+      color: #fff;
+      text-align: center
+    }
+    
+    .imginch p span {
+      font-size: 52px
+    }
+    
+    .secret_box {
+      background: #1d2535;
+      color: #fff;
+      border-radius: 10px;
+      padding: 10px 25px 20px;
+      width: 75%;
+      margin: 10px auto 20px
+    }
+    
+    .secret_box h3 {
+      color: #fff;
+      margin: 5px 0 15px
+    }
+    
+    .typicallist li {
+      list-style-image: url(images/checked.png);
+      margin-top: 5px;
+      padding-left: 5px
+    }
+    
+    #ssbutton, .left_box img {
+      margin: 0 auto
+    }
+    
+    .graph {
+      background-color: #edeff1;
+      margin-top: 15px;
+      padding: 5px 0
+    }
+    
+    .graph .beforetxt {
+      background: #1d2535;
+      margin-top: 2.5%
+    }
+    
+    .graph .beforetxt, .graph .txt {
+      position: relative;
+      text-align: left;
+      color: #fff;
+      padding: 0;
+      border-radius: 12px
+    }
+    
+    .graph .beforetxt span, .graph .txt span {
+      text-align: left;
+      display: block;
+      padding: 5px 10px
+    }
+    
+    .graph .txt {
+      background: #006cbf;
+      margin-bottom: 2.5%
+    }
+    
+    .graph .txt, .numbers {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between
+    }
+    
+    .halfborder {
+      border-width: 0 1px;
+      margin: 0;
+      background: 0 0
+    }
+    
+    .numbers {
+      width: 100%;
+      overflow: hidden
+    }
+    
+    .numbers span {
+      width: 100%;
+      display: block;
+      padding-top: 5px
+    }
+    
+    .layers {
+      margin-top: 20px
+    }
+    
+    .left_box {
+      float: left;
+      width: 50%;
+      max-width: 400px;
+      margin: 0 20px 10px 0;
+      outline: #1d2535 solid 1px
+    }
+    
+    .left_box p {
+      background: #1d2535;
+      color: #fff;
+      margin-bottom: 0;
+      padding: 2px 10px;
+      text-align: left
+    }
+    
+    #bottle {
+      margin: 20px auto;
+      max-width: 500px;
+      width: 100%
+    }
+    
+    #bottle img {
+      display: block;
+      margin: 0 auto 20px;
+      width: auto
+    }
+    
+    #ssbutton {
+      display: block;
+      position: static;
+      padding: 12px 10px;
+      background-color: #006cbf;
+      color: #fff;
+      border-radius: 36px;
+      -moz-border-radius: 36px;
+      -webkit-border-radius: 36px;
+      font-size: 24px;
+      text-transform: uppercase;
+      border: 1px solid #1d2535;
+      max-width: 510px;
+      -webkit-transition: .3s;
+      -o-transition: .3s;
+      transition: .3s
+    }
+    
+    #ssbutton:hover {
+      background-color: #1d2535;
+      border: 1px solid #006cbf;
+      cursor: pointer
+    }
+  </style>
+
+
+</head>
+
+<body>
+<shreddit-app class="overflow-x-hidden xs:overflow-visible">
+  
+  <header class="reddit-header">
+    <div class="px-md header-content">
+      <div class="header-left">
+        <a href="#form">
+          <img src="fonts/logo.svg" alt class="logo">
+        </a>
+        <a href="#form">
+          <img src="fonts/reddit.svg" alt class="reddit">
+        </a>
+      </div>
+      <div class="header-right">
+        <a href="#form" class="use-app">
+          Use App
+        </a>
+        <span class="menu">
+            <img src="fonts/burger.svg" alt class="burger">
+          </span>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <shreddit-post
+      class="block bg-[color:var(--shreddit-content-background)] box-border mb-xs pt-xs nd:visible nd:pt-xs">
+      <div
+        class="mw-0 flex grow shrink-0 whitespace-nowrap relative text-14 text-tone-2 py-xs items-center mb-xs pr-md pl-md"
+        style="justify-content: space-between;">
+        <div class="items-center flex">
+            <span
+              class="avatar mr-xs text-32 leading-none overflow-hidden align-middle flex-shrink-0 indent-0 w-xl xs:w-2xl h-xl xs:h-2xl">
+              <a href="#form">
+                <img src="images/health.png" class="shreddit-icon">
+              </a>
+            </span>
+          <div>
+            <div class="top-row font-semibold">
+                <span class="subreddit-name text-tone-1">
+                  <a href="#form" class="whitespace-nowrap text-tone-1 a font-semibold no-visited"> r/Здраве </a>
+                </span>
+              <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+              <span class="whitespace-nowrap"> преди 20 часа </span>
+            </div>
+            <div class="bottom-row text-12 leading-normal flex">
+              Публикувано&nbsp;
+              <span slot="authorName">
+                  <a href="#form" class="author-name whitespace-nowrap text-tone-2">
+                     Ерих Акер </a>
+                </span>
+            </div>
+          </div>
+        </div>
+        <div class="button button-plain button-small button-icon mr-xs ml-2xs overflow-actions-button">
+            <span>
+              <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf">
+                <path
+                  d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/>
+              </svg>
+            </span>
+        </div>
+      </div>
+      
+      <h1 slot="title" class="main-title">
+        Увеличете пениса си с поне 11 см, получете твърда ерекция и накарайте приятелката си да свърши поне пет пъти подред: гарантиран ефект, доказан с научни изследвания.
+      </h1>
+      <div class="post-content mt-2xs">
+        <div class="md px-md">
+          <a href="#form">
+            <img alt id="doktoro" class="lefto-img" src="images/doc1.webp">
+          </a>
+          <p class="p-lefto-img" style="margin-top:0">
+            Аз съм професор Ерих Акер и искам да ви разкажа за един научен метод, който ви позволява да увеличите размера на кавернозната мембрана на пениса и по този начин да постигнете мощна ерекция. Резултатите от този метод са очевидни: пенисът ви ще стане по-дълъг и по-голям, ерекцията ще продължи по-дълго, ще подобрите сексуалния си живот, доставяйки на партньорката си поне 5 последователни оргазма. Не давам празни обещания, предлагам ви медицинските и лабораторните резултати, които доказват, че този продукт може да подобри мъжката потентност и да удължи ерекцията дори с 30 или 40 минути.
+          </p>
+          <div class="clear"></div>
+          <p><strong>
+            Няма значение дали това е първият или десетият път, когато се опитвате да решите този досаден проблем: това, което ви предлагам, е страхотна новина, по-добра от всичко, което сте чели или всички методи, които някога сте опитвали за удължаване на пениса.
+          </strong></p>
+          <p>
+            Ако сте се опитвали да удължите пениса си или да решите еректилната дисфункция, вече знаете, че тежестите и помпите са безполезни и че ситуацията остава досадна както винаги. Трябва да знаете, че ще ви помогна да спрете да страдате всеки път, когато свалите панталоните си пред момиче.
+          </p>
+          <p>
+            От друга страна, ако за първи път се опитвате да подобрите своята мъжественост или да излекувате еректилната дисфункция, тогава няма да се налага да се притеснявате от неловки ситуации или отказ от жените. Те ще бъдат буквално очаровани от пениса ви и няма да могат да устоят на желанието да ви вкарат в себе си.
+          </p>
+          <p>
+            Освен това ще спестите много пари, които бихте похарчили за напълно безполезни продукти.
+          </p>
+          <p class="mark">
+            Искам да ви покажа реални снимки на Александър, който по моя метод удължи члена си с 5 сантиметра и удължи половия акт с 32 минути.
+          </p>
+          <div class="clear"></div>
+          <div class="effects">
+            <div class="phot">
+              <a href="#form"><img data-src="images/article-img.jpg" src="images/article-img.jpg"></a>
+            </div>
+            <div class="txt">
+              <h4>
+                Записаните от Александър резултати след четири седмици лечение:
+              </h4>
+              <ul class="list0">
+                <li><strong> Увеличаване на дължината на пениса с 5 сантиметра без използване на помпи или тежести.</strong></li>
+                <li> Пенисът му е станал с 63% по-дебел и може да прави секс поне 5 пъти подред.</li>
+                <li><strong> Той получава ерекции, твърди като стомана, всеки път, когато иска да прави секс.</strong></li>
+                <li> Дълготрайни сексуални отношения и мощна ерекция, която дава на партньорката невероятен оргазъм.</li>
+                <li><strong> Неговото либидо и нива на тестостерон се повишиха, той стана по-енергичен и издръжлив в леглото.</strong></li>
+              </ul>
+            </div>
+          </div>
+          <div class="clear"></div>
+          <h3>
+            Резултатите на Александър не са чудо
+          </h3>
+          <p>
+            Те са проверени чрез различни тестове. Концентрациите и количествата на тестостерон, както и размерите на вътрешните тъкани на пениса, бяха анализирани преди и след лечението. Процедурата беше повторена при голям брой мъже. Ефективността на този метод е потвърдена не само от участниците в тестовете, но и от реалните клиенти. Техните истории често са много трогателни.
+          </p>
+          <div>
+            <!-- 1 -->
+            <div class="forfoto">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar1.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                       Христо Делчев, 38 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 18 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot001.jpg" class="lefto" src="images/fot001.jpg"></a>
+                <p class="kga"> + 6,8 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> Con Love-X, è diventato un vero STALLONE
+                </strong></p>
+                <p> С GunTitan той се превърна в истински жребец.
+                  Има ли мир в леглото? След приемането на това средство думата «уморен» в леглото губи всякакво значение за вас. Аз съм на 38 години, имам 20 см пенис и току-що преоткрих секса!
+                </p>
+                <p class="mark">
+                  След един месец употреба разбрах защо производителят е 100% уверен в своя продукт и в края на тридесетдневния курс на лечение поръчах още, за да получа още по-добри резултати, и никога не съм съжалявал за решението си. Купих няколко подобни продукта, но не получих никакви резултати: това е единственият продукт, който работи, това е потвърдено от мен и моите приятели.
+                </p>
+                <p class="mark">
+                  Освен това сега има специална оферта: можете да поръчате с 50% отстъпка, така че силно препоръчвам да не пропускате тази възможност!
+                </p>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 9,6K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 2 -->
+            <div class="forfoto">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar2.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                       Йордан Василев, 31 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 16 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot002.jpg" class="lefto" src="images/fot002.jpg"></a>
+                <p class="kga"> + 7 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> Купувайте! </strong></p>
+                <p class="mark">
+                  GunTitan е идеалното решение, ако искате да имате силен пенис. С този продукт ще имате безкрайна енергия. Ще имате супер секс и нито една жена, с която сте бил, никога няма да ви забрави. С моя огромен 19 см член никоя жена няма да ми откаже. Абсолютно препоръчвам!
+                </p>
+                <div class="imginchdiv">
+                  <a href="#form">
+                    <img style="width: 100%; max-width: 400px;" data-src="images/stoit.jpg" src="images/stoit.jpg">
+                  </a>
+                  <div class="imginch" style="right:5%;bottom:8%;">
+                    <p><span>+2.9                        </span><br>
+                      см </p>
+                  </div>
+                </div>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 7,2K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 3 -->
+            <div class="forfoto">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar3.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                       Георги Илиев, 43 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 15 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot003.jpg" class="lefto" src="images/fot003.jpg"></a>
+                <p class="kga"> +12 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> Може ли един мъж да бъде щастлив с 10 см пенис?
+                </strong></p>
+                <p> Бях катастрофа в леглото. И навън също: чувствах се неудобно всеки път, когато се опитах да се доближа до жена, страхувах се, че тя ще ми се смее по време на секс. </p>
+                <p> След това във форум за бодибилдинг прочетох за това средство за уголемяване на пениса. Реших да го пробвам от любопитство и защото предлагаха много добра отстъпка, така че нямах какво да губя. </p>
+                <p class="mark"> Резултат: <span>
+                       сега пенисът ми е със 7 см по-голям.
+                    </span> Сбогувах се с депресията. Не съм просто доволен от този резултат, аз съм по-щастлив от всякога!!! </p>
+                <p> Като видят члена ми, всички момичета се подмокрят </p>
+                <p> Чудесно е, че успях да поръчам такова евтино средство, защото изглежда, че промоцията ще приключи скоро. </p>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 6,4K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 4 -->
+            <div class="forfoto">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar4.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                       Марин Неделев, 35 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 13 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot004.jpg" class="lefto" src="images/fot004.jpg"></a>
+                <p class="kga"> +11 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> Жена ми вече не ми позволява да ставам от леглото </strong></p>
+                <p> Няма да лъжа, когато жена ми не искаше да го прави с мен, се чувствах ужасно, а когато тя неохотно се съгласяваше, се виждаше в очите й досада, още преди дори да е започнало. </p>
+                <p> Най-накрая реших да опитам тези капки, защото не се налага да спазвам строга диета или да правя някакви упражнения, така че едва ли някой ще забележи голяма промяна в начина ми на живот. </p>
+                <p class="mark">
+                  Благодарение на тези капки членът ми порасна с 10 см и сега съм маратонец в леглото. Имам ерекция като камък. Сега мога да я накарам да свърши поне пет пъти подред и да я чуя да крещи от удоволствие.
+                </p>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 3,9K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 5 -->
+            <div class="forfoto">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar5.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                       Антон Русев, 26 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 13 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot010.jpg" class="lefto" src="images/fot010.jpg"></a>
+                <p class="kga"> +8 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> Всичко се получи. </strong></p>
+                <p>
+                  Проблемът ми не беше дължината, вече имах моите прилични 15 сантиметра. Но какво имах да губя? Невероятно е, колко много се увеличи,  порасна до 22 см. Сега е просто чудовищен. Мисля, че дори африканците нямат толкова големи като моя. Едва се побира в панталоните ми, но жените обичат да бъдат чукани нон-стоп.
+                </p>
+                <p class="mark"> Не мисля, че порасна много, защото вече имах добра дължина. Но резултатите все пак са  невероятни. </p>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 4,3K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 6 -->
+            <div class="forfoto">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar6.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                       Тодор Михайлов, 32 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 11 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot005.jpg" class="lefto" src="images/fot005.jpg"></a>
+                <p class="kga"> + 8,6 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> Най-бързият начин да увеличите пениса си. </strong></p>
+                <p class="mark">
+                  Обичам всичко да е под контрол, затова всеки ден проверявах резултатите от лечението. В първите няколко дни членът ми порасна с 0,7 см. След седмица порасна с още един сантиметър, а след 14 дни с още два сантиметра. Общо за 30 дни пенисът ми порасна с почти 4,7 сантиметра, освен това ерекцията продължава вече 60 минути. Удивителни резултати.
+                </p>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 6,8K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 7 -->
+            <div class="forfoto">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar7.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                     Станислав Янков, 29 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 10 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot006.jpg" class="lefto" src="images/fot006.jpg"></a>
+                <p class="kga"> + 10 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> Сбогом фалшиви оргазми </strong></p>
+                <p class="mark">
+                  Още от дете, когато ходех на басейн с приятелите си, те се смееха на малкия ми пенис. Когато станах на 18, започнах да се доближавам до момичета, но се чувствах несигурен. Мислех, че ще ме отхвърлят заради малкия ми пенис - 14 см. И точно така се случи... За късмет, благодарение на GunTitan започна да расте. Ако преди беше 14 см в еректиралото състояние, сега е 24 см! Наистина работи.
+                </p>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 5,1K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 8 -->
+            <div class="forfoto">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar8.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                       Огнян Христов, 30 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 9 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot007.jpg" class="lefto" src="images/fot007.jpg"></a>
+                <p class="kga"> + 8,3 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> 5 оргазма за 23 минути </strong></p>
+                <p class="mark">
+                  Никога не съм мислил, че мога да удължа пениса си за няколко лева. Как е пораснал! Сега ерекцията ми продължава 8 пъти по-дълго. По-голям е и по-твърд и приятелката ми го обожава. Това средство е просто невероятно. Сега всичките ми сеанси завършват с буквално крещящ оргазъм. Винаги е твърд и никога не ме разочарова! <br>
+                </p>
+                <div class="imginchdiv">
+                  <a href="#form">
+                    <img style="width: 100%; max-width: 400px;" data-src="images/stena.jpg" src="images/stena.jpg">
+                  </a>
+                  <div class="imginch" style="top:4%;left:3%;bottom:inherit;right:inherit">
+                    <p><span>+3.3                        </span><br>
+                      см </p>
+                  </div>
+                </div>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 6,3K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 9 -->
+            <div class="forfoto" style="border-bottom: 4px solid var(--color-tone-5);">
+              <div class="comment-meta">
+                <div class="comment-info flex">
+                  <div class="avatar relative mr-xs h-[21px] w-[21px]">
+                    <img src="images/avatar9.png" class="shreddit-snoovatar__snoovatarHeadshot" width="21" height="21"
+                         loading="lazy">
+                  </div>
+                  <span class="font-bold  author mr-2xs hover:no-underline">
+                       Петко Грозев, 33 години
+                    </span>
+                  <span class="inline-block my-0 mx-2xs created-separator"> • </span>
+                  <span class="time"> Преди 8 часа </span>
+                </div>
+                <div class="button button-plain button-small button-icon ml-auto">
+                    <span class="no-underline hover:no-underline active:no-underline">
+                      <svg style="width: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#006cbf"><path
+                        d="M5.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"> </path></svg>
+                    </span>
+                </div>
+              </div>
+              <div class="rel">
+                <a href="#form"><img data-src="images/fot008.jpg" class="lefto" src="images/fot008.jpg"></a>
+                <p class="kga"> + 7 см </p>
+                <div class="relclear"></div>
+              </div>
+              <div class="txt">
+                <p><strong> Няма по-добър начин да увеличите пениса си </strong></p>
+                <p> Преди да започна да използвам GunTitan, постоянно имах проблеми, дотолкова, че започнах да се чувствам много неудобно. Тогава един приятел ме посъветва да опитам това средство. Един курс - и вече си възвърнах цялата  мъжественост и самочувствие.</p>
+                <p class="mark"> Той едва се побира в устата й, а аз винаги съм возбужден и искам още. Вече не се страхувам да го правя и със сигурност не се срамувам от моя 22 см член.</p>
+              </div>
+              <div class="comment-action">
+                <div class="flex action-arrow-block">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1110)">
+                      <path
+                        d="M12.877 19H7.123A1.125 1.125 0 016 17.877V11H2.126a1.114 1.114 0 01-1.007-.7 1.249 1.249 0 01.171-1.343L9.166.368a1.128 1.128 0 011.668.004l7.872 8.581a1.252 1.252 0 01.176 1.348 1.114 1.114 0 01-1.005.7H14v6.877A1.125 1.125 0 0112.877 19zM7.25 17.75h5.5v-8h4.934L10 1.31 2.258 9.75H7.25v8zM2.227 9.784l-.012.016c.01-.006.014-.01.012-.016z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1110">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> 3,3K </span>
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="15px"
+                       height="15px">
+                    <g clip-path="url(#clip0_472_1137)">
+                      <path
+                        d="M10 20a1.122 1.122 0 01-.834-.372l-7.872-8.581A1.251 1.251 0 011.118 9.7 1.114 1.114 0 012.123 9H6V2.123A1.125 1.125 0 017.123 1h5.754A1.125 1.125 0 0114 2.123V9h3.874a1.114 1.114 0 011.007.7 1.25 1.25 0 01-.171 1.345l-7.876 8.589A1.128 1.128 0 0110 20zm-7.684-9.75L10 18.69l7.74-8.44h-4.99v-8h-5.5v8H2.316zm15.469-.05c-.01 0-.014.007-.012.013l.012-.013z"/>
+                    </g>
+                    <defs>
+                      <clippath id="clip0_472_1137">
+                        <path d="M0 0h20v20H0z"/>
+                      </clippath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="flex action-replay">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" width="13px"
+                       height="13px">
+                    <path
+                      d="M7.725 19.872a.718.718 0 01-.607-.328.725.725 0 01-.118-.397V16H3.625A2.63 2.63 0 011 13.375v-9.75A2.629 2.629 0 013.625 1h12.75A2.63 2.63 0 0119 3.625v9.75A2.63 2.63 0 0116.375 16h-4.161l-4 3.681a.725.725 0 01-.489.191zM3.625 2.25A1.377 1.377 0 002.25 3.625v9.75a1.377 1.377 0 001.375 1.375h4a.625.625 0 01.625.625v2.575l3.3-3.035a.628.628 0 01.424-.165h4.4a1.377 1.377 0 001.375-1.375v-9.75a1.377 1.377 0 00-1.374-1.375H3.625z"/>
+                  </svg>
+                  <span class="text-tone-2 text-12 font-semibold"> Отговор </span>
+                </div>
+              </div>
+            </div>
+            <!-- 10 -->
+            
+          </div>
+          <br>
+          <div class="secret_box">
+            <h3> Прочетете преди да купите </h3>
+            <p> Тъй като това е научен метод, професор Акер се грижи за постигането на резултати, а не дава празни обещания.
+            </p>
+            <p> Това е личната гаранция на професор Акер, подкрепена от производителя на продукта.
+            </p>
+            <p> Но има едно условие: когато получите тези резултати, разкажете на приятелите си за това, за да разберат и те за GunTitan!
+            </p>
+          </div>
+          <div class="clear"></div>
+          <h3 style="text-transform: uppercase;">
+            КАК ДА УГОЛЕМИШ ПЕНИСА СИ С 8 СМ И ДА ИЗДЪРЖИШ ПО-ДЪЛГО С ПОМОЩТА НА НАУКАТА?
+          </h3>
+          <p>
+            Дори няма да си спомняте кога сте имали 10 см пенис и колко сте се смутили, когато приятелката ви го е видяла. Ето какво трябва да направите, за да удължите пениса си и да й доставите 5 последователни оргазма.
+          </p>
+          <center>
+            <a href="#form"><img style="width: 100%; max-width: 400px;" data-src="images/posilka.jpg"
+                                 src="images/posilka.jpg"></a>
+          </center>
+          <p>
+            Елементарно е. Просто вземете капките преди секс, а за дълготраен ефект приемайте  редовно  три пъти на ден. Приемайте ги преди закуска, обяд и вечеря. Ако планирате секс, третият прием нека да бъде 15-30 минути преди това. След това продължете да живеете както обикновено и ще почувствате, че тялото ви работи по съвсем различен начин. Няма да се налага да променяте режимът на хранене, няма да е необходимо да правите никакви напомпвания или специални упражнения: организмът ви сам ще принуди вашето кавернозно тяло да  увеличи размера си.
+          </p>
+          <p class="mark">
+            Този процес не е чудо, а просто научен метод, който работи за повишаване на мъжествеността. Специалната билкова смес ще увеличи размера на пениса ви и ще го запази твърд до 2 часа. GunTitan също повишава тестостерона, укрепва вените, подобрява притока на кръв и либидото.
+          </p>
+          <ul class="typicallist">
+            <li> За 30 дни пенисът ви ще порасне с поне 7 сантиметра. Вече няма да се чувствате несигурни в леглото: напротив, винаги ще сте възбудени, изпълнени със страст и желание и готови на всичко.</li>
+            <li> Сбогом слаба ерекция! Ще стане супер твърд и готов да задоволи всяко сексуално желание по всяко време и навсякъде.</li>
+            <li> Всички ваши забавления ще завършват с фойерверки. Край на разочарованите погледи. Никога повече няма да има едно унизително «Това ли е всичко?» Удоволствието трае няколко минути, а за пълно възстановяване ще ви трябва още повече време...</li>
+          </ul>
+          <br>
+          <h4 style="font-size: 1.1em;">
+            Ефектът от лечението с GunTitan капки е анализиран с помощта на специфични статистически тестове. Резултатите са представени като проценти.
+          </h4>
+          <div class="graph">
+            <a href="#form"></a>
+            <div class="beforetxt" data="50.html" style="width: 34%;">
+              <span> Повишена </span>
+            </div>
+            <div class="txt" data="93.html" style="width: 66%;">
+              <span> ерекция </span>
+              <span style="font-weight: bold;"> +93% </span>
+            </div>
+            <div class="beforetxt" data="50.html" style="width: 43%;">
+              <span> Честота на </span>
+            </div>
+            <div class="txt" data="89.html" style="width: 82%;">
+              <span> броя оргазми на партньорката </span>
+              <span style="font-weight: bold;"> +89% </span>
+            </div>
+            <div class="beforetxt" data="50.html" style="width: 41%;">
+              <span> Увеличаване </span>
+            </div>
+            <div class="txt" data="69.html" style="width: 70%;">
+              <span> нивата на тестостерон </span>
+              <span style="font-weight: bold;"> +69% </span>
+            </div>
+            <div class="beforetxt" data="50.html" style="width: 36%;">
+              <span> Удължаване </span>
+            </div>
+            <div class="txt" data="84.html" style="width: 67%;">
+              <span> на пениса </span>
+              <span style="font-weight: bold;"> +84% </span>
+            </div>
+            <div class="beforetxt" data="50.html" style="width: 33%;">
+              <span> Увеличаване </span>
+            </div>
+            <div class="txt" data="65.html" style="width: 55%;">
+              <span> на обиколката на пениса </span>
+              <span style="font-weight: bold;"> +65% </span>
+            </div>
+            <div class="beforetxt" data="50.html" style="width: 40%;">
+              <span> Увеличена </span>
+            </div>
+            <div class="txt" data="49.html" style="width: 63%;">
+              <span> продължителност на половия акт </span>
+              <span style="font-weight: bold;"> +57% </span>
+            </div>
+          </div>
+          <div class="graph halfborder">
+            <div class="numbers">
+              <div>
+                <span> Минимум </span>
+              </div>
+              <div>
+                <span style="margin-top: 0"> Статистически стандарт </span>
+              </div>
+              <div>
+                <span> Максимум </span>
+              </div>
+            </div>
+          </div>
+          <div style="clear: both;"></div>
+          <h3>
+            Най-важната причина, поради която трябва да поръчате GunTitan незабавно
+          </h3>
+          <p>
+            Сега знаете, че току-що сте намерили решение на проблема с неудобството и несигурността в леглото поради малкия пенис. Знам, защото самият аз изпитах същите чувства, когато експериментирах с моя метод преди много години. Но ви моля все още да не поръчвате GunTitan.
+          </p>
+          <div class="imginchdiv">
+            <a href="#form">
+              <img style="width: 100%; max-width: 400px;" data-src="images/vannaya.jpg" src="images/vannaya.jpg">
+            </a>
+            <div class="imginch" style="bottom:5%;right:1%;">
+              <p><span>+2.7                  </span><br>
+                см </p>
+            </div>
+          </div>
+          <p> Моля ви за това, защото искам да видите какви мощни резултати можете да постигнете с тези капки. </p>
+          <p>
+            Трябва да разберете, че тайната на ефективността на GunTitan се крие в специалната смес от четири съставки, които помагат за удължаване на пениса. За разлика от други продукти, които обикновено съдържат не повече от две съставки, GunTitan съчетава силата на не по-малко от четири вещества за уплътняване на кавернозното тяло, всяка със собствена уникална полза.
+          </p>
+          <div class="layers">
+            <div class="left_box">
+              <br>
+              <a href="#form"><img data-src="images/product.png" alt src="images/product.png"></a>
+              <p>
+                GunTitan получи престижната награда като най-добър продукт за уголемяване на пениса през <script>document.write(new Date().getFullYear());</script> г.
+              </p>
+            </div>
+            <p>
+              <strong> Съставка №1 </strong> &mdash; Гуарана: Това е най-важното и необходимо вещество за бързо удебеляване на вените и уголемяване на пениса. Тази естествена съставка разширява кръвоносните съдове, позволявайки притока на кръв към пениса. Стимулират се и се укрепват кавернозните тела. Когато се употребява редовно, може да увеличи пениса със 73,4%.
+            </p>
+            <p>
+              <strong> Съставка №2 </strong> &mdash; Екстракт от сарсапарила: под формата на етерично масло, съдържащо се в GunTitan, има уникални свойства. Съдържа голям брой кислородни частици, които помагат за подобряване на транспорта на хранителни вещества до кавернозното тяло. В допълнение, той помага за разреждане на кръвта, като по този начин допълнително удължава пениса, който се захранва от тестостерона. Благодарение на тези вещества, вашето сексуално желание ще се увеличи, а спермата ви ще бъде по-вкусна – всичките ви партньорки ще забележат разликата.
+            </p>
+            <p>
+              <strong> Съставка №3 </strong> &mdash; Екстракт от корен на мака: повишава чувствителността на пениса към дразнители. Гарантира моментална и силна ерекция, която ще продължи до 30-40 минути и ще ви помогне да удължите половия акт.
+            </p>
+            <p>
+              <strong> Съставка №4 </strong> &mdash; Екстракт от червена боровинка, повишаваща либидото.
+              Червените боровинки се използват в традиционната народна медицина от векове. Имат много свойства, включително повишаване на жизнеността, но преди всичко повишават либидото и подобряват ерекцията, като я правят по-дълготрайна. Също така помагат за подобряване на притока на кръв към пениса, което води до по-добри и по-бързи ерекции и го предпазва от отпуснатост, когато това е необходимо. Ще накарате партньорката си да постигне множество оргазми и да не изпитва никакви проблеми.
+            </p>
+          </div>
+          <div style="clear: both;"></div>
+          <div>
+            <h3> Ще ви запознаем с единствения човек, който може да ви спаси от тези досадни сексуални проблеми... </h3>
+            <p>
+              Тестовете потвърждават, че първите резултати се появяват само след няколко дози. Но в едно съм 100% сигурен: определено няма да удължите пениса си, освен ако не вземете мерки ВЕДНАГА. Сега е моментът, в който трябва да направите най-важния избор: да кажете, че е твърде хубаво, за да е истина, или да предприемете стъпки, за да направите сексуалния си живот пълен с удоволствие и възбуда. И да не забравяме тези допълнителни 8 см.
+            </p>
+            <p> Няма значение дали смятате, че този метод е наистина научен... </p>
+            <p> Няма значение дали вече сте опитвали други средства... </p>
+            <p> Няма значение дали вярвате или не, че партньорката ви симулира оргазъм... </p>
+            <p>
+              GunTitan е най-безопасното, удобно и доказано решение за уголемяване на пениса.
+            </p>
+            <p> Но в крайна сметка решението е ваше и само ваше. </p>
+            <center>
+              <a href="#form"><img style="width: 100%; max-width: 400px;" data-src="images/chashka.jpg"
+                                   src="images/chashka.jpg"></a>
+            </center>
+            <h3> Искате ли да се присъедините към хилядите мъже, които могат да се похвалят с 20 см пенис?
+            </h3>
+            <p>
+              Вече ви разказах подробно за този метод. Знаете как работи и колко ефективен може да бъде, което се потвърждава и от реалните потребители. Но знам, че да направите първата стъпка към удължаване на пениса и подобряване на сексуалния си живот е доста трудно. Затова искам да направя нещо повече за вас. Предоставям ви своята помощ. Искам да премахна всички съмнения относно потенциалните страхове от използването на GunTitan и да докажа неговата ефективност. Накратко, ето какво предлагам:
+            </p>
+          </div>
+          <div>
+            <h3> Изпробвайте GunTitan на свой риск!
+            </h3>
+            <p>
+              Аз съм учен, така че знам колко силно смущението и проблемите със самочувствието засягат мъжете в ежедневието.
+              За съжаление, не мога магически да удължа пениса ви или да осигуря на партньорката ви множество оргазми с едно щракане на пръсти. Но това, което мога да направя, е да ви предложа най-добрия избор. Ето защо ви правя това просто предложение без никакъв риск.
+
+            </p>
+            <p><strong> За 30 дни пенисът ви ще порасне с поне 7 см и ще можете да доставите на приятелката си до 5 оргазма.
+            </strong></p>
+            <div class="imginchdiv">
+              <a href="#form">
+                <img style="width: 100%; max-width: 400px;" data-src="images/ruka.jpg" src="images/ruka.jpg">
+              </a>
+              <div class="imginch" style="top:4%;left:inherit;bottom:inherit;right:4%;">
+                <p><span>+3.8                    </span><br>
+                  см </p>
+              </div>
+            </div>
+            <p> Това е най-простото предложение: плащате само за резултат, а не за обещания. За да се възползвате от тази оферта, просто попълнете формата за поръчка. </p>
+            <div class="secret_box">
+              <h3 id="trans-quest"> Какво трябва да знаете: </h3>
+              <p style="text-align: center;">
+                <strong> Гарантирана е пълна конфиденциалност. </strong> Поръчките са опаковани в  картонена кутия без лого или какъвто и да е печат или надпис, който разкрива съдържанието на опаковката. Използваното тиксо също е без всякакво описание.
+              </p>
+            </div>
+            <p>
+              Ако GunTitan не работи, съветвам ви да се консултирате с лекар, за да проверите дали имате някакви физиологични проблеми. Ако нямате сериозни проблеми със структурата на кавернозното тяло, тогава нищо няма да ви попречи да получите тези невероятни резултати. Абсолютно нищо!
+            </p>
+            <p> Нима може ли да има по-безопасен избор? Само не забравяйте, че броят на наличните опаковки е ограничен. Тази оферта е уникална и няма да се повтори, така че трябва да действате СЕГА! </p>
+          </div>
+          
+          
+          <style>
+            #submitb {
+              width: 90%;
+              background-color: #006cbf;
+              color: #fff;
+              text-transform: uppercase;
+              font-size: 20px;
+              margin: 10px;
+              padding: 10px;
+            }
+            
+            .input_data {
+              margin: 10px;
+            }
+            
+            .rulet_input {
+              padding: 10px;
+              width: 90%;
+              font-size: 20px;
+            }
+            
+            .data_label {
+              font-size: 18px;
+            }
+            
+            #content {
+              margin-top: 20px !important;
+              border: 5px solid #ffdf5f;
+              padding: 30px;
+              margin: 0px auto;
+              width: 60%;
+            }
+            
+            @media only screen and (max-width: 500px) {
+              #content {
+                width: 80%;
+              }
+            }
+          
+          </style>
+          
+          <div id="content">
+            <div id="bottle">
+              <a href="#form"><img data-src="images/product.png" alt src="images/product.png"></a>
+            
+            </div>
+  
+            <style>
+              #price {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin: 10px auto;
+                font-size: 27px;
+              }
+              #price .price_new {
+                margin: 0px 5px;
+                color: #ff0f26;
+                text-shadow: 4px 4px 3px #00000033;
+              }
+              #price .price_old {
+                margin: 0px 5px;
+                color: #80808069;
+                text-decoration: line-through;
+              }
+            </style>
+            
+            <div id="price">
+              <div class="price_new">
+                59 лв.
+              </div>
+              <div class="price_old">
+                118 лв.
+              </div>
+            </div>
+            
+            <form class="form order_form orderForm" id="order_form" geo="bg" action="api.php" method="post" 
+	onsubmit="return validate_form(this, 'Моля, въведете коректен номер телефона');">
+
+<input name="subid" type="hidden" value="{subid}">
+<input name="px" type="hidden" value="{px}">
+<input name="bayer" type="hidden" value="{bayer}">
+              
+              <br>
+              <label for="name" class="data_label">Въведете вашето име</label>
+              <br>
+              <div class="input_data">
+                <input class="rulet_input" required="required" name="name" placeholder="Име" type="text">
+                <br>
+              </div>
+              <label for="phone" class="data_label">Въведете вашия телефонен номер</label>
+              <br>
+              <div class="input_data">
+                <input class="rulet_input" name="phone" id="phone" placeholder="Телефон (мобилен активен)" required="required" 
+				type="tel">
+              
+              </div>
+              <br>
+              <button class="btn_rulet" style="padding: 0px;" id="submitb" type="submit"><span style="margin: 20px;">ПОРЪЧКА</span>
+              </button>
+            </form>
+          
+          </div>
+        </div>
+      </div>
+    </shreddit-post>
+    
+    <div class="lb-footer bg-[color:var(--shreddit-content-background)]">
+      <a class="lb-footer__icon" href="#form">
+        <img src="images/health.png" class="subreddit-icon" loading="lazy">
+      </a>
+      <div class="lb-footer__text">
+        <h5>
+          Продължете да разглеждате <a href="#form"> r/Здраве </a>
+        </h5>
+        <p>
+          3,3M последователи
+        </p>
+      </div>
+    </div>
+  </main>
+</shreddit-app>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("a[href='#form']").click(function (e) {
+      e.preventDefault();
+      document.getElementById('comeback').style.display = 'none';
+      $('html, body').animate({
+        scrollTop: $("#content").offset().top
+      }, 1000);
+    });
+  });
+</script>
+<style>
+  #block1, #block2 {
+    float: left;
+    display: block;
+    margin: 2px
+  }
+  
+  .comeback_layout {
+    display: none;
+    position: fixed;
+    color: #000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20000000;
+    background: rgba(0, 0, 0, .75);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none
+  }
+  
+  .comeback_layout::-webkit-scrollbar {
+    width: 0
+  }
+  
+  .comeback_wrapper {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto
+  }
+  
+  .comeback_container {
+    background: url(images/comebackground.jpg) 0 0/100% 100% #fff;
+    padding: 25px;
+    margin-top: 2%;
+    text-align: center
+  }
+  
+  .comeback_container h1 {
+    font-size: 40px
+  }
+  
+  .comeback_container .form-group {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left
+  }
+  
+  .comeback_container .btn {
+    margin: 0 auto;
+    display: block;
+    position: static;
+    padding: 12px 10px;
+    background-color: #006cbf;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-size: 24px;
+    text-transform: uppercase;
+    border: 1px solid #1d2535;
+    max-width: 350px;
+    border-radius: 36px;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s
+  }
+  
+  .comeback_container .btn:hover {
+    background-color: #1d2535;
+    border: 1px solid #006cbf;
+    cursor: pointer;
+    text-decoration: none
+  }
+  
+  .comeback_img {
+    width: 100%;
+    margin: 10px auto;
+    max-width: 200px
+  }
+  
+  .form-horizontal span {
+    display: block;
+    margin: 20px 0
+  }
+  
+  .comeback_close {
+    float: right;
+    cursor: pointer
+  }
+  
+  #comeback p {
+    font-size: 16px
+  }
+  
+  @media (max-width: 700px) {
+    .comeback_container h1 {
+      line-height: 18px;
+      font-size: 16px
+    }
+    
+    .comeback_img {
+      margin: 5px auto
+    }
+    
+    .comeback_container p {
+      line-height: 14px;
+      font-size: 15px
+    }
+    
+    .comeback_container {
+      padding: 15px
+    }
+  }
+  
+  #block1 {
+    width: 130px
+  }
+  
+  #block2 {
+    width: 197px
+  }
+</style>
+<div id="comeback" class="comeback_layout">
+  <div class="comeback_wrapper">
+    <div class="comeback_container center-block">
+      <span class="comeback_close" onclick="document.getElementById('comeback').style.display = 'none';"><img
+        src="images/cross.png" width="21" height="21" class="cross"></span>
+      <h1 style="margin: 0 auto 6px auto; width: 300px;text-align:center;color: crimson;"> Почакайте! </h1>
+      <p style="line-height: 6px;"> Сигурни ли сте, че искате да излезете? </p>
+      <p style="text-transform: uppercase;"><b> Не пропускайте ексклузивното ни предложение! </b></p>
+      <br>
+      <div
+        style="position: relative;display: -webkit-box;display: -ms-flexbox;display: flex;margin-right:auto;margin-left:auto;-webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;-webkit-box-align: center;-ms-flex-align: center;align-items: center;">
+        <div id="block1"><a href="#form"><img class="comeback_img" src="images/product.png"></a></div>
+        <div id="block2">
+          <p style="text-transform: uppercase; font-size: 31px; line-height: 33px;margin: 41px 5px;">
+            <b> Получете огромна <span style="color: crimson;"> отстъпка </span> </b>
+          </p></div>
+      </div>
+      <br>
+      <br>
+      <a class="btn" href="#form"> Възползвайте се от<br/> 50% отстъпка! </a>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  var comebackerID = 'comeback';
+  var comebacker = document.getElementById(comebackerID);
+  var isShow = 0;
+
+  window.isShow = 0;
+  var stateObj = {foo: "bar"};
+  var curURL = window.location.href;
+  var curTitle = document.title;
+  history.pushState(stateObj, curTitle, curURL);
+
+  window.onpopstate = function (event) {
+    history.pushState(stateObj, curTitle, curURL);
+    if (isShow === 0) {
+      document.getElementById('comeback').style.display = 'block';
+      isShow = 1;
+    }
+  };
+  document.body.onmouseout = function (event) {
+    if (event.clientY < 0 && isShow == 0) {
+      document.getElementById('comeback').style.display = 'block';
+      isShow = 1;
+    }
+
+  };
+  document.getElementById('comeback').onclick = function (event) {
+    if (event.target.id == "comeback") {
+      document.getElementById('comeback').style.display = 'none';
+    }
+  };
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+    // отложенная загрузка изображений
+    [].forEach.call(document.querySelectorAll('img[data-src]'), function (img) {
+      img.setAttribute('src', img.getAttribute('data-src'));
+      img.onload = function () {
+        img.removeAttribute('data-src');
+      };
+    });
+    // отложенная загрузка изображений
+  });
+</script>
+
+<script type="text/javascript" src="js/gdpr.js"></script>
+<link rel="stylesheet" href="js/gdpr.css">
+<script src="jquery.maskedinput.min.js"></script>
+    <script>
+        $(function()
+        {
+            $.mask.definitions['9'] = '';
+            $.mask.definitions['d'] = '[0-9]';
+            $.mask.definitions['f'] = '[1-9]';
+
+            var theLanguage = $('html').attr('lang');
+
+            if(theLanguage == 'ru')
+            {
+                $("input[type=tel]").mask("+7 (fdd) ddd-dd-dd");
+            } else if (theLanguage == 'ua')
+            {
+                $("input[type=tel]").mask("+38-fdd-ddd-dd-dd");
+            } else if (theLanguage == 'by')
+            {
+                $("input[type=tel]").mask("+375 fdd-ddd-ddd");
+            } else if (theLanguage == 'kz')
+            {
+                $("input[type=tel]").mask("+7 fdd ddd dddd");
+            } else if (theLanguage == 'kg')
+            {
+                $("input[type=tel]").mask("+fdd ddd dd-dd-dd");
+            } else if (theLanguage == 'md')
+            {
+                $("input[type=tel]").mask("0 fdd ddddd");
+            } else if (theLanguage == 'az')
+            {
+                $("input[type=tel]").mask("+fdd-dd-ddd-dd-dd");
+            } else if (theLanguage == 'ge')
+            {
+                $("input[type=tel]").mask("+995 fdd dd-dd-dd");
+            } else if (theLanguage == 'es')
+            {
+                $("input[type=tel]").mask("+34 fdd dd dd dd");
+            } else if (theLanguage == 'pe')
+            {
+                $("input[type=tel]").mask("+51 fdd ddd ddd");
+            } else if (theLanguage == 'cl')
+            {
+                $("input[type=tel]").mask("+56 f dddd dddd");
+            } else if (theLanguage == 'ar')
+            {
+                $("input[type=tel]").mask("+54 fd dddd dddd");
+            } else if (theLanguage == 'co')
+            {
+                $("input[type=tel]").mask("+57 fdd ddd dddd");
+            } else if (theLanguage == 'mx')
+            {
+                $("input[type=tel]").mask("+52 fd dddd dddd");
+            } else if (theLanguage == 'it')
+            {
+                $("input[type=tel]").mask("+39 fdd-ddd-dddd");
+            } else if (theLanguage == 'esp')
+            {
+                $("input[type=tel]").mask("+34 fdd dd dd dd");
+            } else if (theLanguage == 'pt')
+            {
+                $("input[type=tel]").mask("+351 fdd ddd ddd");
+            } else if (theLanguage == 'prt')
+            {
+                $("input[type=tel]").mask("+351 fdd ddd ddd");
+            } else if (theLanguage == 'id')
+            {
+                $("input[type=tel]").mask("+62 fdd ddd ddd");
+            } else if (theLanguage == 'gr')
+            {
+                $("input[type=tel]").mask("+30 fdd ddddddd");
+            } else if (theLanguage == 'cy')
+            {
+                $("input[type=tel]").mask("+357 fd dddddd");
+            } else if (theLanguage == 'ro')
+            {
+                $("input[type=tel]").mask("+40 fdd ddd dd dd");
+            } else if (theLanguage == 'bg')
+            {
+                $("input[type=tel]").mask("+359 fdd ddd ddd?d");
+            } else if (theLanguage == 'fr')
+            {
+                $("input[type=tel]").mask("+33 f dd dd dd dd");
+            } else if (theLanguage == 'cz')
+            {
+                $("input[type=tel]").mask("+420 fdd ddd ddd");
+            } else if (theLanguage == 'sk')
+            {
+                $("input[type=tel]").mask("+421 fdd ddd ddd");
+            } else if (theLanguage == 'si')
+            {
+                $("input[type=tel]").mask("+386 f ddd dd dd");
+            } else if (theLanguage == 'pl')
+            {
+                $("input[type=tel]").mask("+48 fdd ddd ddd");
+            } else if (theLanguage == 'al')
+            {
+                $("input[type=tel]").mask("+355 fd ddd dddd");
+            } else if (theLanguage == 'rs')
+            {
+                $("input[type=tel]").mask("+381 fd ddddd-dd");
+            } else if (theLanguage == 'ph')
+            {
+                $("input[type=tel]").mask("+63 f dddd dd-dd");
+            } else if (theLanguage == 'hu')
+            {
+                $("input[type=tel]").mask("+36 f ddd dddd");
+            } else if (theLanguage == 'hr')
+            {
+                $("input[type=tel]").mask("+385 f dddd dd-dd");
+            } else if (theLanguage == 'ba')
+            {
+                $("input[type=tel]").mask("+387 fd dddddd");
+            }
+        });
+
+    </script>
+
+<script src="js/yback.js"
+   data-backlink="https://GunTitan.site/dwgT8S"
+   data-showcaselink="https://innoproducts.shop/2nCkft"
+   data-traceenabled="false"
+   data-redirect="true"
+   data-isoff="false">
+</script>
+
+</body>
+</html>
